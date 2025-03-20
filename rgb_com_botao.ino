@@ -18,23 +18,19 @@ void setup(){
 }
 
 void loop(){
+    digitalWrite(ledBlue, LOW);
+    digitalWrite(ledGreen, LOW);
+    digitalWrite(ledRed, LOW);
     
-    if(digitalRead(BotaoRed)== HiGH){
+    if(digitalRead(BotaoRed)== HIGH){
         digitalWrite(ledRed, HIGH);
     }
 
-    else if(digitalRead(BotaoGreen)== HiGH){
+   if(digitalRead(BotaoGreen)== HIGH){
         digitalWrite(ledGreen, HIGH);
     }
 
-    else if(digitalRead(BotaoBlue)== HiGH){
+   if(digitalRead(BotaoBlue)== HIGH){
         digitalWrite(ledBlue, HIGH); 
     }
-    else {
-        digitalWrite(ledBlue, LOW);
-        digitalWrite(ledGreen, LOW);
-        digitalWrite(ledRed, LOW);
-    }
-
-
 }
