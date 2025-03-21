@@ -8,7 +8,6 @@ int botao = 8;
 
 void setup(){
     motor.attach(9);
-    pinMode(Servo, OUTPUT);
     pinMode(ledVermelho, OUTPUT);
     pinMode(ledVerde, OUTPUT);
     pinMode(som, OUTPUT);
@@ -19,11 +18,15 @@ void loop(){
     if(digitalRead(botao) == HIGH){
         motor.write(90);
         digitalWrite (ledVerde, HIGH);
+        digitalWrite (ledVermelho, LOW);
         tone(som, 494);
+        delay(2000);
+        noTone(som);
     }
     if(digitalReadd(botao) == LOW){
         motor.write(0);
         digitalWrite (ledVermelho, HIGH);
+        digitalWrite (ledVerde, LOW);
         noTone(som);
     }
 }
