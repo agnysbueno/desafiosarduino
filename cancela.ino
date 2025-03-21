@@ -11,23 +11,25 @@ void setup(){
     motor.attach(9);
     pinMode(red, OUTPUT);
     pinMode(green, OUTPUT);
-    pinMode(blue, OUTPUT);
     pinMode(buzzer, OUTPUT);
     pinMode(botao, INPUT);
     motor.write(0);
 }
 
 void loop(){
-    if(digitalRead(botao, HIGH) == HIGH){
+    if(digitalRead(botao) == HIGH){
+        delay(6000);
         digitalWrite(green, HIGH);
         motor.write(90);
         tone(buzzer, 495);
-        delay(1000);
+        delay(6000);
         noTone(buzzer);
     }
 
-    if(digitalRead(botao, LOW) == LOW){
+    if(digitalRead(botao) == LOW){
         digitalWrite(red, HIGH);
         motor.write(0);
+        noTone(buzzer);
+        digitalWrite(green, LOW);
     }
 }
