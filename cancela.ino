@@ -45,6 +45,7 @@ if(estadoBotao == HIGH){
     digitalWrite(ledverde,LOW);
     digitalWrite(ledvermelho, HIGH);
     motor.write(0);
-}
+
+    }
 
 }
