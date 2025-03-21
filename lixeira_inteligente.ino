@@ -14,11 +14,10 @@ void loop(){
     if(digitalRead(botao) == HIGH){
         motor.write(180);
         delay(10000);
-        motor.write(0);
-        
+        motor.write(0);  
     }
 
-    if(digitalRead(botao) == LOW){
+    else{
         motor.write(0);
     }
 }
