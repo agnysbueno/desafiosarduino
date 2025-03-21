@@ -16,7 +16,10 @@ void setup(){
 }
 void loop(){
     if(digitalRead(botao) == HIGH){
+        delay(5000);
         motor.write(90);
+        delay(8000);
+        motor.write(0);
         digitalWrite (ledVerde, HIGH);
         digitalWrite (ledVermelho, LOW);
         tone(som, 494);
