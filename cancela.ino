@@ -17,7 +17,7 @@ int estadoBotao;
 
 void setup() {
 //declarção de motor
-    motor.attach(9)
+    motor.attach(9);
 
     pinMode(ledvermelho, OUTPUT);
     pinMode(ledverde, OUTPUT);
@@ -33,24 +33,16 @@ estadoBotao = digitalRead(botao);
 
 if(estadoBotao == HIGH){
     tone(buzzer, 494);
-    digitalWride(ledverde, HIGH);
-    motor.write(100);
-    delay(500);
+    delay(100);
+    digitalWrite(ledverde, HIGH);
+    digitalWrite(ledvermelho, LOW);
+    motor.write(90);
+    delay(6000);
 }else{
      noTone(buzzer);
-    digitalWrite(ledverde,LOW)
-}
-
-if(estadoBotao == LOW){
-    noTone(buzzer);
+    digitalWrite(ledverde,LOW);
     digitalWrite(ledvermelho, HIGH);
     motor.write(0);
-    delay(3000);
-
-}else{ 
-    noTone(buzzer);
-    digitalWrite(ledvermelho,LOW)
-
 }
 
 }
