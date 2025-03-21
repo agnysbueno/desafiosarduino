@@ -1,0 +1,30 @@
+//componentes: lampadaa, sensor de luz/luminosidade
+//se estiver escuro, liga a lampada 
+//se estiver claro, desliga lampada
+
+/*if(escuro){       |
+ligar lampada       |
+}else{              |->  Logica utilizada
+desliga almpada     |
+}*/                 |
+
+int lampada = 10;
+int sensor = A0;
+
+
+void setup(){
+pinMode(lampada, INTPUT);//INPUT sera relacionado com Read = ler (quem lê, recebe); [escrever>enviar>sair]
+pinMode(sensor, OUTPUT); //OUTPUT sera relacionado com Write = escrever = enviar (quem escreve envia); [entrar>receber>ler]
+}
+
+
+void loop(){
+    //portas analógicas recebem valores de 0 a 1024
+    //0 = escuro
+    //1024 = super claro
+    if(analogRead(sensor) < 600){
+        digitalWrite(lampada, HIGH);
+    }else{
+        digitalWrite(lampada, LOW);
+    }
+}
