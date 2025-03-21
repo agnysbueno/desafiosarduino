@@ -22,7 +22,7 @@ void setup() {
     pinMode(ledvermelho, OUTPUT);
     pinMode(ledverde, OUTPUT);
     pinMode(buzzer, OUTPUT);
-    pinMode(botao, INPUT); //
+    pinMode(botao, INPUT); 
     
     // serve para mandar o motor em algum angulo "(0)"
     motor.write(0);
@@ -34,10 +34,12 @@ estadoBotao = digitalRead(botao);
 if(estadoBotao == HIGH){
     tone(buzzer, 494);
     delay(100);
+    noTone(buzzer);
     digitalWrite(ledverde, HIGH);
     digitalWrite(ledvermelho, LOW);
     motor.write(90);
     delay(6000);
+    motor.write(0);
 }else{
      noTone(buzzer);
     digitalWrite(ledverde,LOW);
