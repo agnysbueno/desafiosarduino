@@ -27,7 +27,7 @@ void setup(){
 
 void loop(){
     pararAlarme();
-    if(digitalRead(sensor_luminosidade) <= 600 && sensorDistancia.read() <= 500){
+    if(analogRead(sensor_luminosidade) <= 600 && sensorDistancia.read() <= 500){
         acionarAlarme();
     }
 }
