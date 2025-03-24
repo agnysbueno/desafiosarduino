@@ -23,6 +23,7 @@ void setup(){
     pinMode(sensor_luminosidade, INPUT);//recebe luz
 
     motor.attach(5); // porta do motor
+    motor.write(0);//motor começa no 0°
 }
 
 void loop(){
