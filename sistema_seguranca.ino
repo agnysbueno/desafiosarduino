@@ -13,21 +13,21 @@ Servo motor;/*instancia o objeto Servo chamado 'motor'*/
 int lampada = 10;
 int buzina = 9;
 int btn = 8;
-int sensorLuminosidade = A0;
+int sensor_luminosidade = A0;
  
 
 void setup(){
     pinMode(lampada, OUTPUT);//emite luz
     pinMode(buzina, OUTPUT)//emite som
     pinMode(btn, INPUT);//botao recebe informacao
-    pinMode(sensorLuminosidade, INPUT);//recebe luz
+    pinMode(sensor_luminosidade, INPUT);//recebe luz
 
     motor.attach(5); // porta do motor
 }
 
 void loop(){
     pararAlarme();
-    if(digitalRead(sensorLuminosidade) <= 600 && sensorDistancia.read() <= 500){
+    if(digitalRead(sensor_luminosidade) <= 600 && sensorDistancia.read() <= 500){
         acionarAlarme();
     }
 }
