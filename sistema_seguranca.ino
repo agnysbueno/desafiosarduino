@@ -10,7 +10,7 @@ Ulttrasonic sensorDistancia(12, 13); /*instancia o objeto Ultrasonic chamado 'se
 Servo motor;/*instancia o objeto Servo chamado 'motor'*/
 
 //DECLARAÇÃO DE VARIÁVEIS
-int lampada = 13;
+int lampada = 10;
 int buzina = 9;
 int btn = 8;
 int sensorLuminosidade = A0;
