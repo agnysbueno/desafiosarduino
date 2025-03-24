@@ -1,8 +1,4 @@
-led 
-buzzer 
-servomotor
-btn
-led
+
 
 //DECLARAÇÃO DE VARIÁVEIS
 #include <Servo.h>
@@ -18,10 +14,10 @@ void setup(){
     pinMode(ledGreen, OUTPUT);
     pinMode(buz, OUTPUT);
     pinMode(btn, INPUT);  
-    motor.aattach(5);  
+    motor.attach(5);  
     motor.write(0);
 }
-nota si
+
 
 
 void loop(){
