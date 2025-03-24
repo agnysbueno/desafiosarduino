@@ -10,7 +10,8 @@ int led = 7;
 
 void setup(){
     pinMode(led, OUTPUT);
-    pinMode(sensor_distancia, INPUT);
+
+   // pinMode(sensor_distancia, INPUT); NAO É PRA BOTAR O PINMODE DO ULTRASONICO, JA TA NA BIBLIOTECA.
     pinMode(buzzer, OUTPUT);
     pinMode(sensor_luz, INPUT);//luminosidade
     pinMode(botao, INPUT);
@@ -19,14 +20,21 @@ void setup(){
 // se a pessoa passar na frente do sensor de presença a luz pisca
 // o buzzer toca
 // a porta tranca
-//eu vou apertar o botao e tudo vai parar
+// eu vou apertar o botao e tudo vai parar
 
 void loop(){
 
-    void pararAlarme(){
+    if(sensor_distancia.read() < 300 && analogRead(sensor_luz)<=600){
+        acionarAlarme();
+    
+    }
     if(digitalRead(botao,HIGH)){
-        digitalWrite(led, LOW);
-        noTone(buzzer);
+        pararAlarme();
+    }
+
+    void pararAlarme(){
+            digitalWrite(led, LOW);
+            noTone(buzzer);
      }
     }
 
@@ -49,10 +57,10 @@ void loop(){
     }
 
     void acionarAlarme(){
-        if(sensor_distancia.read() < 300 && analogRead(sensor_luz)>=600){
+        
             sirene();
             trancarPorta();
             piscarLampada();
         }
-    }
+    
 }
