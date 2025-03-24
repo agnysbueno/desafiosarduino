@@ -26,9 +26,12 @@ void setup(){
 }
 
 void loop(){
-    pararAlarme();
+    /* Se estiver de noite e detectar movimento acionará o alarme de segurança*/
     if(analogRead(sensor_luminosidade) <= 600 && sensorDistancia.read() <= 500){
         acionarAlarme();
+    }
+    if(digitalRead(btn) == HIGH){
+        pararAlarme();
     }
 }
 
@@ -46,11 +49,9 @@ void piscarLampadas(){
     delay(500);
 }
 void pararAlarme(){
-    if(digitalRead(btn) == HIGH){
     noTone(buzina);
     digitalWrite(lampada, LOW);
     motor.write(0);
-    }
 }
 void acionarAlarme(){
     piscarLampadas();
