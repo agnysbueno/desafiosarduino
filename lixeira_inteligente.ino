@@ -1,21 +1,18 @@
 #include <Ultrasonic.h> //biblioteca do sensor de distância
-
+#include <Servo.h> 
 Ultrasonic sensor(12, 13); // variavel chamada sensor: trig, echo
-
-int distancia;// variavel aux que vai guardar o valor lido pelo sensor em cm
-int led=13; 
+Servo motor; //objeto Servo
 
 void setup(){
- // trig e echo nao tem pinMode
+ motor.attach(9); //porta do servo motor
 }
 
 void loop(){
- distancia = sensor.read();
-
- if(distancia<20){
-    digitalWrite(led, HIGH);
+ 
+ if(sensor.read() < 10){
+   motor.write(90); //ângulo para abrir a lixeira
  }else{
-    digitalWrite(led, LOW);
+    motor.write(0);
  }
 }
 
