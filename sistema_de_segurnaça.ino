@@ -1,49 +1,72 @@
-/*sistema de segurança recidencial
-sensor distancia, sensor de luz, 1 buzer, 2 lampada
-se estive de noite e perto da porta:
-disparar o alarme trancar a porta e lampadas piscarem alternadamente
+/*********************************** PROJETO ************************************/
+/*
+dev. Derdlim Naranjo
+sistema de segurança recidencial;
+sensor distancia, sensor de luz, 1 buzer, 2 lampadas Esternas
+se estive de noite e perto da porta: disparar o alarme trancar a porta e lampadas piscarem alternadamente
 */
 
-//declaração de variaveis
+/*************** DECLARAÇÃO DE VARIÁVEIS ***************/
 #include <Servo.h>
 Servo tranca; // o servomotor que esta sendo utilizaado como a trava da porta
 
-int lampada1 = 10;
-int lampada2 = 11;
-int alarme = 12;
-int sensor = A0;
+#include <Ultrasonic.h>
+Ultrasonic sensorDist(12,13);   //porta onde está conectado o trigger e o echo, respectivamente
+int distancia;
 
+int lampadaExterna1 = 10;
+int lampadaExterna2 = 11;
+
+int alarme = 12; //responsavel de emitir um som
+
+int sensorDeLuz = A0;
+
+/*************** CONFIGURAÇÕES DOS COMPONENTES ***************/
 void setup(){
-tranca.attach(9);
-pinMode(lampada1, OUTPUT);
-pinMode(lampada2, OUTPUT);
+tranca.attach(9); //sevo motor declarado na porta 9 do arduino
+ /*componetes de saida*/
+pinMode(lampadaExterna1, OUTPUT);
+pinMode(lampadaExterna2, OUTPUT);
 pinMode(alarme, OUTPUT);
-pinMode(sensor1, INPUTPUT);
+
+/*componestes de entrada*/
+pinMode(sensorDeLuz, INPUT);
+
+
+
+}
+/*************** CONDIÇÕES QUE FAZEM O PROJETO FUNCIONAR ***************/
+/*Alarme ativado quando a luminocidade do dia estiver menos que 600:
+0 = 0% aceso, ou seja, totalmente escuro
+1024 = 100% aceso
+*/
+void loop(){            //condição combinada
+if (analogRead(sensor) <= 600 && distancia 12.5){ //quando estiver de noite, acionara o sistema de segurança
+    disparAlarme(); //aciona o alarme
+    trancaPorta();  //trava a porta
+    piscarLampadas(); //pisca as lampadas externas
+}
+void lerDist(){
+    distancia = sensor.read();
+}
 
 }
 
-void loop(){
-if (analogRead(sensor) <600){
-    disparAlarme();
-    trancaPorta();
-    piscarLampadas();
-}
-}
-
-void dispararAlarme(){
+/*************** FUNÇÕES DO PROJETO ***************/
+void dispararAlarme(){ //aciona alarme sonoro 
     (tonealarme, 260);    
 }
 
-void trancaPorta(){
+void trancaPorta(){ //o motor se movimenta para trancar a porta
     tranca.write(0);
 }
-
+/*Lampadas que quando acionadas, piscam alternadamente*/
 void piscarLampadas(){
-    digitalWrite(lampada2, LOW);
-    digitalWrite(lampada1, HIGH);
+    digitalWrite(lampadaExterna2, LOW);
+    digitalWrite(lampadaExterna1, HIGH);
     delay(50);
-    digitalWrite(lampada1, LOW);
-    digitalWrite(lampada2, HIGH);
+    digitalWrite(lampadaExterna1, LOW);
+    digitalWrite(lampadaExterna2, HIGH);
     delay(50);
     
 }
