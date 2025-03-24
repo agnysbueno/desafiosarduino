@@ -16,6 +16,8 @@ void loop() {
     /*o método .read() aciona o trigger do sensor e faz o cálculo da distância, 
     este valor em cm será guardado na variável 'distancia'
     */
+
+  /*se a distância for menor que 10, vai acender o led */
     if( sensor_distancia.read() < 10){ 
         digitalWrite(led, HIGH);
     }else{
