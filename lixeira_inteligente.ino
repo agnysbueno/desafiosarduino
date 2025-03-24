@@ -9,7 +9,7 @@ void setup(){
 
 void loop(){
  
- if(sensor.read() < 10){
+ if(sensor.read() < 10){//distancia
    motor.write(90); //ângulo para abrir a lixeira
  }else{
     motor.write(0);

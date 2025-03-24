@@ -1,85 +1,58 @@
-/*Sistema de segurança residencial:
-Objetivo: 
+#include <Ultrasonic.h> //biblioteca do sensor de distância
+#include <Servo.h> 
 
-/***************DECLARAÇÃO DE VARIÁVEIS******************/
-/*Componentes de Entrada*/
-int buzzerAlarme = 9; 
-int Lampada1 = 10; 
-int Llampada2 = 11;
-#include <Servo.h> // servo motor está sendo utilizado como a trava da porta
-Servo tranca;
-#include <Ultrasonic.h> 
-Ultrasonic sensorDist(12, 13);//porta onde está conectado o trigger e o echo, respectivamente
-int distancia;
-
-/*Componente de Saída*/
-int sensor = A0;  //sensor de luminosidade para saber se está de noite
-
-/*********************CONFIGURAÇÕES DOS COMPONENTES************************** */
+Ultrasonic sensor_distancia(12, 13); 
+Servo motor;
+int sensor_luz = A0;
+int buzzer = 6;
+int botao = 5;
+int led = 7;
 
 void setup(){
-    tranca.attach(9); 
-    pinMode(buzzerAlarme, OUTPUT);
-    pinMode(Lampada1, OUTPUT);
-    pinMode(Lampada2, OUTPUT);
-    pinMode(sensor, INPUT);
-
+    pinMode(led, OUTPUT);
+    pinMode(sensor_distancia, INPUT);
+    pinMode(buzzer, OUTPUT);
+    pinMode(sensor_luz, INPUT);//luminosidade
+    pinMode(botao, INPUT);
+    motor.attach(9);
 }
+// se a pessoa passar na frente do sensor de presença a luz pisca
+// o buzzer toca
+// a porta tranca
+//eu vou apertar o botao e tudo vai parar
 
-/**********************CONDIÇÃO QUE FAZ O PROJETO FUNCIONAR**************************/
+void loop(){
 
-/*O alarme será ativado quando a luminosidade estiver menor que 600+96
-(< 600 noite) 
-(> 600 dia)
-máximo  1024*/
-void loop(){ 
-    if(analogRead(sensor) < 600 && distancia <=12.5)//quando estiver de noite e alguém estiver a uma distância igual ou menor que 12.5 acionará o sistema de segurança;
-        dispararAlarme(); //função para acionar o alarme
-        trancarPorta(); //função para travar a porta
-        piscarLampada(); //função para piscar os leds
+    void pararAlarme(){
+    if(digitalRead(botao,HIGH)){
+        digitalWrite(led, LOW);
+        noTone(buzzer);
+     }
     }
 
+    void trancarPorta(){
+        motor.write(0);
+    }
 
-/*************************FUNÇÕES DO PROJETO***************************/
+    void piscarLampada(){
+        digitalWrite(led, HIGH);
+        delay(500);
+        digitalWrite(led, LOW);
+        delay(500);
+    }
 
-/*quando o alarme for disparado o buzzer irá emitir uma frequência sonora*/
-void dispararAlarme(){ 
-    tone(buzzerAlarme, 260);
+    void sirene(){
+        tone(buzzer,494);
+        delay(1000);
+        noTone(buzzer);
+        delay(500);
+    }
+
+    void acionarAlarme(){
+        if(sensor_distancia.read() < 300 && analogRead(sensor_luz)>=600){
+            sirene();
+            trancarPorta();
+            piscarLampada();
+        }
+    }
 }
-
-/*quando o alarme for disparado o motor irá movimentar para trancar a porta*/
-void trancarPorta(){ 
-    tranca.write(0);
-}
-
-/*quando o alarme for disparado os leds 1 e 2 irão acender alternadamente*/
-void piscarLampada(){ 
-    digitalWrite(Lampada1, HIGH);
-    digitalWrite(Lampada2, LOW);
-    delay(50);
-    digitalWrite(Lampada1, LOW);
-    digitalWrite(Lampada2, HIGH);
-    delay(50);
-}
-
-void lerDist(){
-    distancia = sensor.read();
-}
-
-
-/*
-
-FUNÇÃO:
-tipo nome(parametro1, parametro2, etc...){} 
-
-exemplo: 
-float subtrair(num1,num2){ //cria uma função chamada 'subtrair' do tipo float, pois retornará números reais, e que precisa receber 2 parâmetros: num1 e num2
-int resultado; //cria a variável resultado para armazenar o resultado da subtração
-resultado = num1 - num2; //faz o cálculo do num1 menos o num2 e armazena esse valor na variável 'resultado'
-return resultado; // retorna para a programação o resultado da subtração
-}
-
-COMO CHAMAR UMA FUNÇÃO NO CÓDIGO:
-subtrair(9,4); // chama a função subtrair e passa os parâmetros 'num1' = 9 e 'num2' = 4
-
-*/
