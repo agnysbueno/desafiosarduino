@@ -11,16 +11,19 @@ int led = 10;
 
 void setup(){
 //não é necessário declarar pinMode paa o trig e o echo
-pinMode(led,OUTPUT);
+motor.attach(9);// define a porta em que o servo motor está conectado no arduíno
 }
 
 
 void loop(){
-    distancia = sensor.read()
+    /*Se o valor lido pelo sensor de distância for menor que 10 centímetros,
+    então o motor moverá para o ângulo 90°, abrindo o lixeira
+    Se o valor lido for maior ou igual a 10cm, então o motor moverá para 0° e a lixeira fechará*/
+    
 
-    if (distancia < 20){
-        digitalWrite(led, HIGH);
+    if (sensor.read < 20){
+        motor.write(90); //abre a lixeira
     }else{
-        digitalWrite(led, LOW);
+        motor.attach(0); //fecha a lixeira
     }
 }
