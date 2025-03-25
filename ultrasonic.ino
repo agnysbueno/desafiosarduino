@@ -2,8 +2,10 @@
 
 Ultrasonic sensor_distancia(2,3); //instancia um objeto ultrasonic chamado sensor_distancia e passa 2 parâmetros: porta trig e porta echo, respectivamente
 
+int led =13;
 
-void setup(){ //não é necessário declarar pinMode para o trig e echo pois a própria biblioteca já fazz automaticamente
+void setup(){ 
+    //não é necessário declarar pinMode para o trig e echo pois a própria biblioteca já fazz automaticamente
     pinMode(led, OUTPUT);
 }
 
